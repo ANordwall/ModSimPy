@@ -1,0 +1,811 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{!Project}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{} Configure Jupyter so figures appear in the notebook}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        
+        \PY{c+c1}{\PYZsh{} Configure Jupyter to display the assigned value after an assignment}
+        \PY{o}{\PYZpc{}}\PY{k}{config} InteractiveShell.ast\PYZus{}node\PYZus{}interactivity=\PYZsq{}last\PYZus{}expr\PYZus{}or\PYZus{}assign\PYZsq{}
+        
+        \PY{c+c1}{\PYZsh{} import functions from the modsim library}
+        \PY{k+kn}{from} \PY{n+nn}{modsim} \PY{k}{import} \PY{o}{*}
+        
+        \PY{k+kn}{from} \PY{n+nn}{pandas} \PY{k}{import} \PY{n}{read\PYZus{}html}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{If this cell runs successfully, it produces no output other than this message.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+If this cell runs successfully, it produces no output other than this message.
+
+    \end{Verbatim}
+
+    When will the world run out of land to farm? Overpopulation is a growing
+concern for many reasons, one of which is that food insecurity is
+already a problem. Right now it takes approximatley 1.5 acres (or about
+0.6 hectares) of arable land to feed a single person. The world is
+currently using about 4,870,000,000 hectares for food production of the
+10,400,000,000 sq hectares of habitable land on earth, and we're losing
+about 10,000,000 sq hectares per year. In our model, we're looking at a
+few different things that are changing together. The first is the world
+population, which is growing. The second is the amount of land used
+worldwide for farming, which is also growing, but the amount of land
+used per person is shrinking. The third is the amount of land there is
+available worldwide for farming total, which is also shrinking.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{years} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1960}\PY{p}{,} \PY{l+m+mi}{1970}\PY{p}{,} \PY{l+m+mi}{1980}\PY{p}{,} \PY{l+m+mi}{1990}\PY{p}{,} \PY{l+m+mi}{2000}\PY{p}{,} \PY{l+m+mi}{2001}\PY{p}{,} \PY{l+m+mi}{2002}\PY{p}{,} \PY{l+m+mi}{2003}\PY{p}{,} \PY{l+m+mi}{2004}\PY{p}{,} \PY{l+m+mi}{2005}\PY{p}{,} \PY{l+m+mi}{2006}\PY{p}{,} \PY{l+m+mi}{2007}\PY{p}{,} \PY{l+m+mi}{2008}\PY{p}{,} \PY{l+m+mi}{2009}\PY{p}{,} \PY{l+m+mi}{2010}\PY{p}{,}
+                 \PY{l+m+mi}{2011}\PY{p}{,} \PY{l+m+mi}{2012}\PY{p}{,} \PY{l+m+mi}{2013}\PY{p}{,} \PY{l+m+mi}{2014}\PY{p}{,} \PY{l+m+mi}{2015}\PY{p}{,} \PY{l+m+mi}{2016}\PY{p}{]}
+        
+        \PY{n}{land\PYZus{}use\PYZus{}pp} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{0.451919372}\PY{p}{,} \PY{l+m+mf}{0.385204614}\PY{p}{,} \PY{l+m+mf}{0.326785524}\PY{p}{,} \PY{l+m+mf}{0.286297473}\PY{p}{,} \PY{l+m+mf}{0.247009002}\PY{p}{,} \PY{l+m+mf}{0.24534424}\PY{p}{,} \PY{l+m+mf}{0.242130755}\PY{p}{,}
+                    \PY{l+m+mf}{0.24018149}\PY{p}{,} \PY{l+m+mf}{0.239136634}\PY{p}{,} \PY{l+m+mf}{0.236090524}\PY{p}{,} \PY{l+m+mf}{0.233199837}\PY{p}{,} \PY{l+m+mf}{0.229251163}\PY{p}{,} \PY{l+m+mf}{0.22765509}\PY{p}{,} \PY{l+m+mf}{0.226193034}\PY{p}{,} 
+                    \PY{l+m+mf}{0.222376911}\PY{p}{,} \PY{l+m+mf}{0.222110783}\PY{p}{,} \PY{l+m+mf}{0.22207999}\PY{p}{,} \PY{l+m+mf}{0.219344617}\PY{p}{,} \PY{l+m+mf}{0.219223725}\PY{p}{,} \PY{l+m+mf}{0.217747262}\PY{p}{,} \PY{l+m+mf}{0.21717029}\PY{p}{]}
+        \PY{n}{plot} \PY{p}{(}\PY{n}{years}\PY{p}{,} \PY{n}{land\PYZus{}use\PYZus{}pp}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:} [<matplotlib.lines.Line2D at 0x186758cd780>]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_2_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{systemLandPP} \PY{o}{=} \PY{n}{System}\PY{p}{(}\PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{1.2}\PY{p}{,}
+                               \PY{n}{beta} \PY{o}{=} \PY{o}{.}\PY{l+m+mi}{1}\PY{p}{,}
+                              \PY{n}{t\PYZus{}0} \PY{o}{=} \PY{l+m+mi}{1960}\PY{p}{,}
+                              \PY{n}{r\PYZus{}0} \PY{o}{=} \PY{l+m+mf}{0.451919372}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}26}]:} alpha       1.200000
+         beta        0.100000
+         t\_0      1960.000000
+         r\_0         0.451919
+         dtype: float64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}118}]:} \PY{k}{def} \PY{n+nf}{land\PYZus{}PP\PYZus{}change1}\PY{p}{(}\PY{n}{land\PYZus{}use\PYZus{}pp}\PY{p}{,} \PY{n}{system}\PY{p}{)}\PY{p}{:}
+          
+              \PY{n}{pp\PYZus{}decline} \PY{o}{=} \PY{n}{land\PYZus{}use\PYZus{}pp}\PY{o}{/}\PY{l+m+mi}{60} 
+              \PY{k}{return} \PY{n}{land\PYZus{}use\PYZus{}pp} \PY{o}{\PYZhy{}} \PY{n}{pp\PYZus{}decline}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}119}]:} \PY{k}{def} \PY{n+nf}{land\PYZus{}PP\PYZus{}change2}\PY{p}{(}\PY{n}{land\PYZus{}use\PYZus{}pp}\PY{p}{,} \PY{n}{system}\PY{p}{)}\PY{p}{:}
+              \PY{n}{pp\PYZus{}decline} \PY{o}{=} \PY{n}{land\PYZus{}use\PYZus{}pp}\PY{o}{/}\PY{l+m+mi}{100} \PY{o}{+} \PY{p}{(}\PY{n}{land\PYZus{}use\PYZus{}pp}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{200}
+              \PY{k}{return} \PY{n}{land\PYZus{}use\PYZus{}pp} \PY{o}{\PYZhy{}} \PY{n}{pp\PYZus{}decline}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}129}]:} \PY{k}{def} \PY{n+nf}{run\PYZus{}simulation\PYZus{}PP}\PY{p}{(}\PY{n}{system}\PY{p}{,} \PY{n}{update\PYZus{}func}\PY{p}{)}\PY{p}{:}
+          
+              \PY{n}{results} \PY{o}{=} \PY{n}{TimeSeries}\PY{p}{(}\PY{p}{)}
+              \PY{n}{results}\PY{p}{[}\PY{n}{system}\PY{o}{.}\PY{n}{t\PYZus{}0}\PY{p}{]} \PY{o}{=} \PY{n}{system}\PY{o}{.}\PY{n}{r\PYZus{}0}
+              
+              \PY{k}{for} \PY{n}{t} \PY{o+ow}{in} \PY{n}{linrange}\PY{p}{(}\PY{l+m+mi}{1960}\PY{p}{,} \PY{l+m+mi}{2016}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{if} \PY{n}{t} \PY{o}{\PYZlt{}} \PY{l+m+mi}{1980}\PY{p}{:}
+                      \PY{n}{results}\PY{p}{[}\PY{n}{t}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{land\PYZus{}PP\PYZus{}change1}\PY{p}{(}\PY{n}{results}\PY{p}{[}\PY{n}{t}\PY{p}{]}\PY{p}{,} \PY{n}{system}\PY{p}{)}
+                  \PY{k}{else}\PY{p}{:}
+                      \PY{n}{results}\PY{p}{[}\PY{n}{t}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{land\PYZus{}PP\PYZus{}change2}\PY{p}{(}\PY{n}{results}\PY{p}{[}\PY{n}{t}\PY{p}{]}\PY{p}{,} \PY{n}{system}\PY{p}{)}
+              \PY{k}{return} \PY{n}{results}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}129}]:} 1960    0.451919
+          1961    0.444387
+          1962    0.436981
+          1963    0.429698
+          1964    0.422536
+          1965    0.415494
+          1966    0.408569
+          1967    0.401760
+          1968    0.395064
+          1969    0.388479
+          1970    0.382005
+          1971    0.375638
+          1972    0.369377
+          1973    0.363221
+          1974    0.357167
+          1975    0.351214
+          1976    0.345361
+          1977    0.339605
+          1978    0.333945
+          1979    0.328379
+          1980    0.322906
+          1981    0.319156
+          1982    0.315455
+          1983    0.311803
+          1984    0.308199
+          1985    0.304642
+          1986    0.301131
+          1987    0.297666
+          1988    0.294247
+          1989    0.290871
+          1990    0.287540
+          1991    0.284251
+          1992    0.281004
+          1993    0.277800
+          1994    0.274636
+          1995    0.271512
+          1996    0.268428
+          1997    0.265384
+          1998    0.262378
+          1999    0.259410
+          2000    0.256479
+          2001    0.253586
+          2002    0.250728
+          2003    0.247907
+          2004    0.245120
+          2005    0.242369
+          2006    0.239651
+          2007    0.236968
+          2008    0.234317
+          2009    0.231699
+          2010    0.229114
+          2011    0.226560
+          2012    0.224038
+          2013    0.221547
+          2014    0.219086
+          2015    0.216655
+          2016    0.214254
+          dtype: float64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}131}]:} \PY{n}{results} \PY{o}{=} \PY{n}{run\PYZus{}simulation}\PY{p}{(}\PY{n}{systemLandPP}\PY{p}{,} \PY{n}{land\PYZus{}PP\PYZus{}change}\PY{p}{)}
+          \PY{n}{plot} \PY{p}{(}\PY{n}{results\PYZus{}PP}\PY{p}{)}
+          \PY{n}{plot} \PY{p}{(}\PY{n}{years}\PY{p}{,} \PY{n}{land\PYZus{}use\PYZus{}pp}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}131}]:} [<matplotlib.lines.Line2D at 0x18677363f98>]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}91}]:} \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}\PYZdq{}Using population model from chapter 8 notebook\PYZdq{}\PYZdq{}\PYZdq{}}
+         
+         \PY{n}{filename} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data/World\PYZus{}population\PYZus{}estimates.html}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{tables} \PY{o}{=} \PY{n}{read\PYZus{}html}\PY{p}{(}\PY{n}{filename}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{index\PYZus{}col}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{decimal}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{M}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{table2} \PY{o}{=} \PY{n}{tables}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}
+         \PY{n}{table2}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{census}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{un}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{maddison}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hyde}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tanton}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{biraben}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mj}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{thomlinson}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{durand}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{clark}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}92}]:} \PY{n}{un} \PY{o}{=} \PY{n}{table2}\PY{o}{.}\PY{n}{un} \PY{o}{/} \PY{l+m+mf}{1e9}
+         \PY{n}{census} \PY{o}{=} \PY{n}{table2}\PY{o}{.}\PY{n}{census} \PY{o}{/} \PY{l+m+mf}{1e9}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}92}]:} Year
+         1950    2.557629
+         1951    2.594940
+         1952    2.636772
+         1953    2.682053
+         1954    2.730228
+         1955    2.782099
+         1956    2.835300
+         1957    2.891350
+         1958    2.948137
+         1959    3.000717
+         1960    3.043002
+         1961    3.083967
+         1962    3.140093
+         1963    3.209828
+         1964    3.281201
+         1965    3.350426
+         1966    3.420678
+         1967    3.490334
+         1968    3.562314
+         1969    3.637159
+         1970    3.712698
+         1971    3.790327
+         1972    3.866569
+         1973    3.942096
+         1974    4.016609
+         1975    4.089083
+         1976    4.160185
+         1977    4.232085
+         1978    4.304106
+         1979    4.379014
+                   {\ldots}   
+         1987    5.027200
+         1988    5.114557
+         1989    5.201440
+         1990    5.288956
+         1991    5.371586
+         1992    5.456136
+         1993    5.538268
+         1994    5.618682
+         1995    5.699203
+         1996    5.779441
+         1997    5.857973
+         1998    5.935213
+         1999    6.012075
+         2000    6.088571
+         2001    6.165219
+         2002    6.242016
+         2003    6.318591
+         2004    6.395700
+         2005    6.473045
+         2006    6.551264
+         2007    6.629914
+         2008    6.709050
+         2009    6.788214
+         2010    6.858585
+         2011    6.935999
+         2012    7.013871
+         2013    7.092128
+         2014    7.169968
+         2015    7.247893
+         2016    7.325997
+         Name: census, Length: 67, dtype: float64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}138}]:} \PY{k}{def} \PY{n+nf}{run\PYZus{}simulation}\PY{p}{(}\PY{n}{system}\PY{p}{,} \PY{n}{update\PYZus{}func}\PY{p}{)}\PY{p}{:}
+              \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Simulate the system using any update function.}
+          \PY{l+s+sd}{    }
+          \PY{l+s+sd}{    system: System object}
+          \PY{l+s+sd}{    update\PYZus{}func: function that computes the population next year}
+          \PY{l+s+sd}{    }
+          \PY{l+s+sd}{    returns: TimeSeries}
+          \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+              \PY{n}{results} \PY{o}{=} \PY{n}{TimeSeries}\PY{p}{(}\PY{p}{)}
+              \PY{n}{results}\PY{p}{[}\PY{n}{system}\PY{o}{.}\PY{n}{t\PYZus{}0}\PY{p}{]} \PY{o}{=} \PY{n}{system}\PY{o}{.}\PY{n}{p\PYZus{}0}
+              
+              
+              \PY{k}{for} \PY{n}{t} \PY{o+ow}{in} \PY{n}{linrange}\PY{p}{(}\PY{n}{system}\PY{o}{.}\PY{n}{t\PYZus{}0}\PY{p}{,} \PY{n}{system}\PY{o}{.}\PY{n}{t\PYZus{}end}\PY{p}{)}\PY{p}{:}
+                      \PY{n}{results}\PY{p}{[}\PY{n}{t}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{update\PYZus{}func}\PY{p}{(}\PY{n}{results}\PY{p}{[}\PY{n}{t}\PY{p}{]}\PY{p}{,} \PY{n}{t}\PY{p}{,} \PY{n}{system}\PY{p}{)}
+                  
+              \PY{k}{return} \PY{n}{results}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}139}]:} \PY{k}{def} \PY{n+nf}{update\PYZus{}func\PYZus{}quad}\PY{p}{(}\PY{n}{pop}\PY{p}{,} \PY{n}{t}\PY{p}{,} \PY{n}{system}\PY{p}{)}\PY{p}{:}
+              \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Update population based on a quadratic model.}
+          \PY{l+s+sd}{    }
+          \PY{l+s+sd}{    pop: current population in billions}
+          \PY{l+s+sd}{    t: what year it is}
+          \PY{l+s+sd}{    system: system object with model parameters}
+          \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+              \PY{n}{net\PYZus{}growth} \PY{o}{=} \PY{n}{system}\PY{o}{.}\PY{n}{alpha} \PY{o}{*} \PY{n}{pop} \PY{o}{+} \PY{n}{system}\PY{o}{.}\PY{n}{beta} \PY{o}{*} \PY{n}{pop}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+              \PY{k}{return} \PY{n}{pop} \PY{o}{+} \PY{n}{net\PYZus{}growth}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}193}]:} \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}usable land decline\PYZdq{}\PYZdq{}\PYZdq{}}
+          
+          
+          \PY{n}{total\PYZus{}land} \PY{o}{=} \PY{l+m+mf}{10.960000000}
+          \PY{n}{land\PYZus{}decay} \PY{o}{=} \PY{l+m+mf}{0.010000000}
+          
+          \PY{n}{state} \PY{o}{=} \PY{n}{State}\PY{p}{(}\PY{n}{total\PYZus{}land} \PY{o}{=} \PY{n}{total\PYZus{}land}\PY{p}{,}
+                       \PY{n}{land\PYZus{}decay} \PY{o}{=} \PY{n}{land\PYZus{}decay}\PY{p}{)}
+          
+          \PY{n}{t\PYZus{}array} \PY{o}{=} \PY{n}{linrange}\PY{p}{(}\PY{l+m+mi}{1960}\PY{p}{,} \PY{l+m+mi}{2016}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+          
+          \PY{k}{def} \PY{n+nf}{decay\PYZus{}sim} \PY{p}{(}\PY{p}{)}\PY{p}{:}
+              \PY{n}{al}\PY{o}{=} \PY{n}{TimeSeries}\PY{p}{(}\PY{p}{)}
+              
+              \PY{k}{for} \PY{n}{t} \PY{o+ow}{in} \PY{n}{t\PYZus{}array}\PY{p}{:}
+                  \PY{n}{al}\PY{p}{[}\PY{n}{t}\PY{p}{]}\PY{o}{=}\PY{n}{total\PYZus{}land}\PY{o}{\PYZhy{}}\PY{n}{land\PYZus{}decay}\PY{o}{*}\PY{p}{(}\PY{n}{t}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1960}\PY{p}{)}
+              \PY{n}{plot}\PY{p}{(}\PY{n}{al}\PY{p}{)}
+              
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}200}]:} \PY{n}{t\PYZus{}0} \PY{o}{=} \PY{l+m+mi}{1960}
+          \PY{n}{t\PYZus{}end} \PY{o}{=} \PY{n}{get\PYZus{}last\PYZus{}label}\PY{p}{(}\PY{n}{census}\PY{p}{)}
+          \PY{n}{p\PYZus{}0} \PY{o}{=} \PY{n}{get\PYZus{}first\PYZus{}value}\PY{p}{(}\PY{n}{census}\PY{p}{)}
+          
+          \PY{n}{newTS} \PY{o}{=} \PY{n}{TimeSeries}\PY{p}{(}\PY{p}{)}
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{list}\PY{p}{(}\PY{n}{results}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+              \PY{n}{newTS}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{results}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{*} \PY{n}{results\PYZus{}PP}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+              
+          \PY{n}{plot}\PY{p}{(}\PY{n}{newTS}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Land in Use}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{decay\PYZus{}sim}\PY{p}{(}\PY{p}{)}
+          
+          
+          \PY{n}{decorate}\PY{p}{(}\PY{n}{xlabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                  \PY{n}{ylabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Land in Billions of Hectares}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                  \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Land Use vs Land Avaialable over Time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_13_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}141}]:} \PY{n}{system\PYZus{}pop} \PY{o}{=} \PY{n}{System}\PY{p}{(}\PY{n}{t\PYZus{}0}\PY{o}{=}\PY{n}{t\PYZus{}0}\PY{p}{,} 
+                          \PY{n}{t\PYZus{}end}\PY{o}{=}\PY{n}{t\PYZus{}end}\PY{p}{,}
+                          \PY{n}{p\PYZus{}0}\PY{o}{=}\PY{n}{p\PYZus{}0}\PY{p}{,}
+                          \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.025}\PY{p}{,}
+                          \PY{n}{beta}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.0018}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}141}]:} t\_0      1960.000000
+          t\_end    2016.000000
+          p\_0         2.557629
+          alpha       0.025000
+          beta       -0.001800
+          dtype: float64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}142}]:} \PY{n}{results} \PY{o}{=} \PY{n}{run\PYZus{}simulation}\PY{p}{(}\PY{n}{system\PYZus{}pop}\PY{p}{,} \PY{n}{update\PYZus{}func\PYZus{}quad}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{results}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}142}]:} [<matplotlib.lines.Line2D at 0x186774efef0>]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}147}]:} \PY{k}{def} \PY{n+nf}{total\PYZus{}land\PYZus{}used}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+              \PY{n}{land\PYZus{}used} \PY{o}{=} \PY{n}{results} \PY{o}{*} \PY{n}{results\PYZus{}PP}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{years}\PY{p}{,} \PY{n}{land\PYZus{}used}\PY{p}{)}
+              
+              
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        NameError                                 Traceback (most recent call last)
+
+        <ipython-input-147-338d4a9a2ef1> in <module>()
+          1 def total\_land\_used():
+          2     land\_used = results * results\_PP
+    ----> 3 plot(years, land\_used)
+          4 
+          5 
+    
+
+        NameError: name 'land\_used' is not defined
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}163}]:} \PY{n}{system\PYZus{}combined} \PY{o}{=} \PY{n}{System}\PY{p}{(} \PY{n}{t\PYZus{}end}\PY{o}{=}\PY{n}{t\PYZus{}end}\PY{p}{,}
+                          \PY{n}{p\PYZus{}0}\PY{o}{=}\PY{n}{p\PYZus{}0}\PY{p}{,}
+                          \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.025}\PY{p}{,}
+                          \PY{n}{beta}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.0018}\PY{p}{,}
+                          \PY{n}{t\PYZus{}0}\PY{o}{=}\PY{l+m+mi}{1960}\PY{p}{,}
+                          \PY{n}{r\PYZus{}0}\PY{o}{=}\PY{l+m+mf}{0.451919372}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}163}]:} t\_end    2016.000000
+          p\_0         2.557629
+          alpha       0.025000
+          beta       -0.001800
+          t\_0      1960.000000
+          r\_0         0.451919
+          dtype: float64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}170}]:} \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}NOT USING THIS RIGHT NOW\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}combining the population and land use per person simulations\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{k}{def} \PY{n+nf}{run\PYZus{}simulation\PYZus{}land\PYZus{}change}\PY{p}{(}\PY{n}{system}\PY{p}{)}\PY{p}{:}
+          
+              \PY{n}{results} \PY{o}{=} \PY{n}{TimeSeries}\PY{p}{(}\PY{p}{)}
+              \PY{n}{results}\PY{p}{[}\PY{n}{system}\PY{o}{.}\PY{n}{t\PYZus{}0}\PY{p}{]} \PY{o}{=} \PY{n}{system}\PY{o}{.}\PY{n}{r\PYZus{}0}
+              
+              \PY{k}{for} \PY{n}{t} \PY{o+ow}{in} \PY{n}{linrange}\PY{p}{(}\PY{l+m+mi}{1960}\PY{p}{,} \PY{l+m+mi}{2016}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{if} \PY{n}{t} \PY{o}{\PYZlt{}} \PY{l+m+mi}{1980}\PY{p}{:}
+                      \PY{n}{results}\PY{p}{[}\PY{n}{t}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{land\PYZus{}change1}\PY{p}{(}\PY{n}{results}\PY{p}{[}\PY{n}{t}\PY{p}{]}\PY{p}{,} \PY{n}{system}\PY{p}{)}
+                  \PY{k}{else}\PY{p}{:}
+                      \PY{n}{results}\PY{p}{[}\PY{n}{t}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{land\PYZus{}change2}\PY{p}{(}\PY{n}{results}\PY{p}{[}\PY{n}{t}\PY{p}{]}\PY{p}{,} \PY{n}{system}\PY{p}{)}
+              \PY{k}{return} \PY{n}{results}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}171}]:} \PY{k}{def} \PY{n+nf}{land\PYZus{}change1}\PY{p}{(}\PY{n}{pop}\PY{p}{,} \PY{n}{t}\PY{p}{,} \PY{n}{land\PYZus{}use\PYZus{}pp}\PY{p}{,} \PY{n}{system}\PY{p}{)}\PY{p}{:}
+              
+              \PY{n}{net\PYZus{}growth} \PY{o}{=} \PY{n}{system}\PY{o}{.}\PY{n}{alpha} \PY{o}{*} \PY{n}{pop} \PY{o}{+} \PY{n}{system}\PY{o}{.}\PY{n}{beta} \PY{o}{*} \PY{n}{pop}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+              \PY{n}{pp\PYZus{}decline} \PY{o}{=} \PY{n}{land\PYZus{}use\PYZus{}pp}\PY{o}{/}\PY{l+m+mi}{60} 
+              \PY{k}{return} \PY{p}{(}\PY{n}{land\PYZus{}use\PYZus{}pp} \PY{o}{\PYZhy{}} \PY{n}{pp\PYZus{}decline}\PY{p}{)} \PY{o}{*} \PY{p}{(}\PY{n}{pop} \PY{o}{+} \PY{n}{net\PYZus{}growth}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}172}]:} \PY{k}{def} \PY{n+nf}{land\PYZus{}change2}\PY{p}{(}\PY{n}{pop}\PY{p}{,} \PY{n}{t}\PY{p}{,} \PY{n}{land\PYZus{}use\PYZus{}pp}\PY{p}{,} \PY{n}{system}\PY{p}{)}\PY{p}{:}
+              \PY{n}{net\PYZus{}growth} \PY{o}{=} \PY{n}{system}\PY{o}{.}\PY{n}{alpha} \PY{o}{*} \PY{n}{pop} \PY{o}{+} \PY{n}{system}\PY{o}{.}\PY{n}{beta} \PY{o}{*} \PY{n}{pop}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+              \PY{n}{pp\PYZus{}decline} \PY{o}{=} \PY{n}{land\PYZus{}use\PYZus{}pp}\PY{o}{/}\PY{l+m+mi}{100} \PY{o}{+} \PY{p}{(}\PY{n}{land\PYZus{}use\PYZus{}pp}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{200}
+              \PY{k}{return} \PY{p}{(}\PY{n}{land\PYZus{}use\PYZus{}pp} \PY{o}{\PYZhy{}} \PY{n}{pp\PYZus{}decline}\PY{p}{)} \PY{o}{*} \PY{p}{(}\PY{n}{pop} \PY{o}{+} \PY{n}{net\PYZus{}growth}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}173}]:} \PY{n}{results} \PY{o}{=} \PY{n}{run\PYZus{}simulation\PYZus{}land\PYZus{}change}\PY{p}{(}\PY{n}{system\PYZus{}combined}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{results}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        TypeError                                 Traceback (most recent call last)
+
+        <ipython-input-173-7e5e8224a345> in <module>()
+    ----> 1 results = run\_simulation\_land\_change(system\_combined)
+          2 plot(results)
+    
+
+        <ipython-input-170-df52ec273073> in run\_simulation\_land\_change(system)
+          7     for t in linrange(1960, 2016, 1):
+          8         if t < 1980:
+    ----> 9             results[t+1] = land\_change1(results[t], system)
+         10         else:
+         11             results[t+1] = land\_change2(results[t], system)
+    
+
+        TypeError: land\_change1() missing 2 required positional arguments: 'land\_use\_pp' and 'system'
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{n}{total\PYZus{}land} \PY{o}{=} \PY{l+m+mi}{10960000000}
+         \PY{n}{land\PYZus{}decay} \PY{o}{=} \PY{l+m+mi}{10000000}
+         
+         \PY{n}{state} \PY{o}{=} \PY{n}{State}\PY{p}{(}\PY{n}{total\PYZus{}land} \PY{o}{=} \PY{n}{total\PYZus{}land}\PY{p}{,}
+                      \PY{n}{land\PYZus{}decay} \PY{o}{=} \PY{n}{land\PYZus{}decay}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}49}]:} total\_land    10960000000
+         land\_decay       10000000
+         dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}199}]:} \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}usable land decline\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{n}{t\PYZus{}array} \PY{o}{=} \PY{n}{linrange}\PY{p}{(}\PY{l+m+mi}{1960}\PY{p}{,} \PY{l+m+mi}{2016}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+          
+          \PY{k}{def} \PY{n+nf}{decay\PYZus{}sim} \PY{p}{(}\PY{p}{)}\PY{p}{:}
+              \PY{n}{al}\PY{o}{=} \PY{n}{TimeSeries}\PY{p}{(}\PY{p}{)}
+              
+              \PY{k}{for} \PY{n}{t} \PY{o+ow}{in} \PY{n}{t\PYZus{}array}\PY{p}{:}
+                  \PY{n}{al}\PY{p}{[}\PY{n}{t}\PY{p}{]}\PY{o}{=}\PY{n}{total\PYZus{}land}\PY{o}{\PYZhy{}}\PY{n}{land\PYZus{}decay}\PY{o}{*}\PY{p}{(}\PY{n}{t}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1960}\PY{p}{)}
+              \PY{n}{plot}\PY{p}{(}\PY{n}{al}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Land Available}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              
+          \PY{n}{decay\PYZus{}sim}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_24_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
